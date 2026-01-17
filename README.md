@@ -1,11 +1,97 @@
+# 🅿️ Parket - Smart Parking App
 
-  # Smart Parking App UI Design
+This is the code for **Parket**, a smart parking app UI design. Find and navigate to parking spots easily!
 
-  This is a code bundle for Smart Parking App UI Design. The original project is available at https://www.figma.com/design/JCgzoMLIenYl8cBqWWyEtC/Smart-Parking-App-UI-Design.
+Original design: https://www.figma.com/design/JCgzoMLIenYl8cBqWWyEtC/Smart-Parking-App-UI-Design
 
-  ## Running the code
+---
 
-  Run `npm i` to install the dependencies.
+## 🚀 How to Run This Project
 
-  Run `npm run dev` to start the development server.
-  
+### Quick Setup (Easy Way)
+
+**For your friends:**
+
+1. Click the green **Code** button at the top of this page
+2. Click **Download ZIP**
+3. Extract the ZIP file to a folder
+4. Open the folder in your terminal/command prompt
+5. Paste these commands one at a time:
+   ```
+   npm install
+   npm run dev
+   ```
+6. Open your browser to `http://localhost:5173`
+
+---
+
+### Using Git (For developers)
+
+```bash
+# Clone the repository
+git clone https://github.com/haxscrz/Parket.git
+cd Parket
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+Then open your browser to the URL shown (usually `http://localhost:5173`)
+
+---
+
+## 📋 Requirements
+
+Before you can run this, you need to install **Node.js**:
+
+1. Download from: https://nodejs.org/
+2. Install it (use default settings)
+3. Restart your terminal/command prompt
+4. Done! (npm comes with it)
+
+**Check if you have it:**
+```bash
+node --version
+npm --version
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **React** - UI framework
+- **TypeScript** - Programming language
+- **Vite** - Super fast build tool
+- **Tailwind CSS** - Styling
+- **Figma** - Design tool
+
+---
+
+## 📁 Project Structure
+
+```
+Parket/
+├── src/
+│   ├── components/        # React components
+│   ├── App.tsx           # Main app
+│   └── main.tsx          # Entry point
+├── package.json          # Dependencies
+└── vite.config.ts        # Build config
+```
+
+---
+
+## 💡 Tips
+
+- Press **h** in the terminal while the dev server runs for more options
+- Changes to files automatically reload in your browser
+- The app runs locally - no internet needed (except for first setup)
+
+---
+
+**Created by:** Hans Carlo C. Cruz
+
+**Questions?** Check the issues or create a new one!
