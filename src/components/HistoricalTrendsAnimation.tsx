@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { TrendingUp, Activity, BarChart3 } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from 'recharts';
 import { mlService } from '../services/mlPredictionService';
 
 interface HistoricalTrendsAnimationProps {
@@ -31,12 +31,12 @@ export function HistoricalTrendsAnimation({ location, darkMode }: HistoricalTren
           setTimeout(() => {
             setDisplayData([]);
             setCurrentDataPoint(0);
-          }, 1000);
+          }, 2000);
           return prev;
         }
         return prev + 1;
       });
-    }, 150); // Add new point every 150ms
+    }, 400); // Smoother: Add new point every 400ms
 
     return () => clearInterval(interval);
   }, [allData, isAnimating]);
@@ -186,15 +186,26 @@ export function HistoricalTrendsAnimation({ location, darkMode }: HistoricalTren
                   fontSize: '11px'
                 }}
               />
+              <Legend 
+                wrapperStyle={{ fontSize: '11px', marginTop: '8px' }}
+                iconType="line"
+                formatter={(value: string) => {
+                  if (value === 'occupancy') return 'Avg Occupancy';
+                  if (value === 'trend') return 'Live Trend';
+                  return value;
+                }}
+              />
               <Area
                 type="monotone"
                 dataKey="occupancy"
                 stroke="#f97316"
-                strokeWidth={2}
+                strokeWidth={3}
                 fill="url(#occupancyGradient)"
-                animationDuration={300}
+                animationDuration={600}
+                animationEasing="ease-in-out"
                 isAnimationActive={true}
-                dot={{ r: 3, fill: '#f97316' }}
+                dot={{ r: 4, fill: '#f97316', strokeWidth: 2, stroke: '#fff' }}
+                name="Avg Occupancy"
               />
               <Area
                 type="monotone"
@@ -202,9 +213,11 @@ export function HistoricalTrendsAnimation({ location, darkMode }: HistoricalTren
                 stroke="#3b82f6"
                 strokeWidth={2}
                 fill="url(#trendGradient)"
-                animationDuration={300}
+                animationDuration={600}
+                animationEasing="ease-in-out"
                 isAnimationActive={true}
-                dot={false}
+                dot={{ r: 2, fill: '#3b82f6' }}
+                name="Live Trend"
               />
             </AreaChart>
           </ResponsiveContainer>

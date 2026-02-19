@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LoginScreen } from './components/LoginScreen';
 import { HomeScreen } from './components/HomeScreen';
+import { HomeScreenRevamped } from './components/HomeScreenRevamped';
 import { ParkingNavigationScreen } from './components/ParkingNavigationScreen';
 import { NotificationsScreen } from './components/NotificationsScreen';
 import { ProfileScreen } from './components/ProfileScreen';
@@ -49,7 +50,7 @@ export default function App() {
   return (
     <div className={`${darkMode ? 'dark' : ''}`}>
       {currentScreen === 'home' && (
-        <HomeScreen
+        <HomeScreenRevamped
           onNavigateToParking={() => navigateToScreen('parking')}
           onNavigateToProfile={() => navigateToScreen('profile')}
           onNavigateToWallet={() => navigateToScreen('wallet')}
