@@ -69,152 +69,75 @@ export function HomeScreenRevamped({
 
   return (
     <div className="w-full h-screen bg-white dark:bg-slate-950 flex flex-col overflow-hidden">
-      {/* Premium Animated Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#193654] via-[#1e4670] to-[#0f1f35] pt-4 pb-8 px-4">
-        {/* Animated Background Elements */}
-        <motion.div
-          className="absolute top-0 right-0 w-72 h-72 bg-[#2a5a8a] rounded-full opacity-10 blur-3xl"
-          animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-0 w-96 h-96 bg-[#1e4670] rounded-full opacity-5 blur-3xl"
-          animate={{ y: [0, -30, 0], x: [0, -20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* Premium Gradient Header */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#193654] via-[#1e4670] to-[#0f1f35] pt-6 pb-8 px-4 sm:px-6">
+        {/* Top Bar with Greeting & Notification */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-white font-bold text-2xl sm:text-3xl mb-1 leading-tight">
+              Good morning, Hans! 👋
+            </h1>
+            <p className="text-white/70 text-sm sm:text-base font-medium">
+              Let's find you the perfect spot
+            </p>
+          </div>
+          <button
+            onClick={onNavigateToNotifications}
+            className="relative flex-shrink-0 p-2.5 sm:p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all ml-3"
+          >
+            <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+          </button>
+        </div>
 
-        <div className="relative z-10">
-          {/* Top Bar with Greeting & Notification */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex-1">
-              <motion.h1 
-                className="text-white font-bold text-2xl sm:text-3xl mb-1 leading-tight"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                Good morning, Hans! 👋
-              </motion.h1>
-              <motion.p 
-                className="text-white/70 text-sm sm:text-base font-medium"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                Let's find you the perfect spot
-              </motion.p>
+        {/* Premium Balance Card */}
+        <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-2xl border border-white/20 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl overflow-hidden hover:shadow-3xl transition-all hover:from-white/20 hover:to-white/10 group">
+          <div className="flex items-start justify-between gap-4">
+            {/* Balance Info */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-2 rounded-lg bg-white/10 backdrop-blur-md group-hover:bg-white/20 transition-all">
+                  <Wallet className="w-4 h-4 sm:w-5 sm:h-5 text-white/90" />
+                </div>
+                <span className="text-white/70 text-xs sm:text-sm font-semibold uppercase tracking-wide">E-Wallet</span>
+              </div>
+              <h2 className="text-white text-4xl sm:text-5xl font-black mb-2">
+                ₱2,350
+              </h2>
+              <p className="text-white/60 text-xs sm:text-sm font-medium">Available balance</p>
             </div>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onNavigateToNotifications}
-              className="relative flex-shrink-0 p-2.5 sm:p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all"
-            >
-              <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              <motion.span
-                className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            </motion.button>
+
+            {/* Animated Icon */}
+            <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#2a5a8a] to-[#1e4670] rounded-2xl flex items-center justify-center shadow-lg border border-white/10 group-hover:scale-110 transition-transform">
+              <CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-white/80" />
+            </div>
           </div>
 
-          {/* Premium Balance Card */}
-          <motion.div
-            className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-2xl border border-white/20 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl overflow-hidden group"
-            whileHover={{ scale: 1.02, y: -4 }}
-            transition={{ duration: 0.3 }}
+          {/* Action Button */}
+          <button
+            onClick={onNavigateToWallet}
+            className="mt-4 w-full bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl sm:rounded-2xl transition-all flex items-center justify-center gap-2 text-sm sm:text-base hover:scale-105"
           >
-            {/* Shine Effect */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-              animate={{ x: [-200, 200] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+            <Plus className="w-4 h-4" />
+            <span>Top-up Balance</span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </button>
+        </div>
 
-            <div className="relative z-10">
-              <div className="flex items-start justify-between gap-4">
-                {/* Balance Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <motion.div
-                      className="p-2 rounded-lg bg-white/10 backdrop-blur-md"
-                      whileHover={{ rotate: 10, scale: 1.1 }}
-                    >
-                      <Wallet className="w-4 h-4 sm:w-5 sm:h-5 text-white/90" />
-                    </motion.div>
-                    <span className="text-white/70 text-xs sm:text-sm font-semibold uppercase tracking-wide">E-Wallet</span>
-                  </div>
-                  <motion.h2 
-                    className="text-white text-4xl sm:text-5xl font-black mb-2 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    ₱2,350
-                  </motion.h2>
-                  <p className="text-white/60 text-xs sm:text-sm font-medium">Available balance</p>
-                </div>
-
-                {/* Animated Icon */}
-                <motion.div
-                  className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#2a5a8a] to-[#1e4670] rounded-2xl flex items-center justify-center shadow-lg border border-white/10"
-                  animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.05, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-white/80" />
-                </motion.div>
-              </div>
-
-              {/* Action Button */}
-              <motion.button
-                onClick={onNavigateToWallet}
-                className="mt-4 w-full bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-2.5 sm:py-3 rounded-xl sm:rounded-2xl transition-all flex items-center justify-center gap-2 text-sm sm:text-base group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+        {/* Enhanced Quick Actions */}
+        <div className="mt-6 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div className="flex gap-2.5 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
+            {quickActions.map((action, index) => (
+              <button
+                key={action.label}
+                onClick={action.action}
+                className={`flex flex-col items-center justify-center w-18 sm:w-24 h-20 sm:h-24 bg-gradient-to-br ${action.color} text-white rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 backdrop-blur-md hover:shadow-2xl hover:scale-110 transition-all relative overflow-hidden flex-shrink-0 group`}
               >
-                <Plus className="w-4 h-4" />
-                <span>Top-up Balance</span>
-                <motion.span
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </motion.button>
-            </div>
-          </motion.div>
-
-          {/* Enhanced Quick Actions */}
-          <div className="mt-6 -mx-4 sm:mx-0 px-4 sm:px-0">
-            <ScrollArea className="w-full">
-              <div className="flex gap-2.5 sm:gap-3 pb-2">
-                {quickActions.map((action, index) => (
-                  <motion.button
-                    key={action.label}
-                    onClick={action.action}
-                    className={`flex flex-col items-center justify-center w-18 sm:w-24 h-20 sm:h-24 bg-gradient-to-br ${action.color} text-white rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 backdrop-blur-md hover:shadow-2xl transition-all relative overflow-hidden group flex-shrink-0`}
-                    whileHover={{ scale: 1.08, y: -4 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.08, duration: 0.4 }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
-                    <motion.div
-                      className="absolute inset-0 bg-white/10"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileHover={{ scale: 2, opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    <action.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-1.5 relative z-10 text-white/95" />
-                    <span className="text-[10px] sm:text-xs font-bold relative z-10 text-center uppercase tracking-wide">{action.label}</span>
-                  </motion.button>
-                ))}
-              </div>
-            </ScrollArea>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                <action.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-1.5 relative z-10 text-white/95" />
+                <span className="text-[10px] sm:text-xs font-bold relative z-10 text-center uppercase tracking-wide">{action.label}</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
