@@ -70,132 +70,110 @@ export function HomeScreenRevamped({
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col">
       {/* Compact Header - Mobile Optimized */}
-      <motion.div 
-        className="relative overflow-hidden bg-[#193654]"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Gradient Background with Animation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#193654] via-[#1e4670] to-[#193654]">
-          <motion.div
-            className="absolute inset-0 opacity-20"
-            animate={{
-              background: [
-                "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
-              ],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
+      <div className="bg-gradient-to-br from-[#193654] via-[#1e4670] to-[#193654] px-4 py-3 relative z-10">
+        {/* Top Bar */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <motion.div 
+              className="w-10 h-10 bg-white/20 backdrop-blur-xl rounded-xl flex items-center justify-center border border-white/30 flex-shrink-0"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="text-white font-bold text-lg">P</div>
+            </motion.div>
+            <div className="min-w-0 flex-1">
+              <h1 className="font-bold text-white text-sm leading-tight">Good morning, Hans!</h1>
+              <p className="text-white/80 text-xs">Ready for smart parking?</p>
+            </div>
+          </div>
+
+          <motion.div whileTap={{ scale: 0.9 }} className="flex-shrink-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="relative text-white hover:bg-white/10 backdrop-blur-sm rounded-lg w-10 h-10 flex items-center justify-center"
+              onClick={onNavigateToNotifications}
+            >
+              <Bell className="w-5 h-5" />
+              <motion.div
+                className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </Button>
+          </motion.div>
         </div>
 
-        <div className="relative pt-2 px-4 pb-4">
-          {/* Top Bar */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2 flex-1 min-w-0">
-              <motion.div 
-                className="w-10 h-10 bg-white/20 backdrop-blur-xl rounded-xl flex items-center justify-center border border-white/30 flex-shrink-0"
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="text-white font-bold text-lg">P</div>
-              </motion.div>
-              <div className="min-w-0 flex-1">
-                <h1 className="font-bold text-white text-sm leading-tight">Good morning, Hans!</h1>
-                <p className="text-white/80 text-xs">Ready for smart parking?</p>
+        {/* Balance Card - Compact Mobile */}
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Card className="bg-[#0f1f35]/80 backdrop-blur-xl border-white/20 text-white overflow-hidden">
+            <div className="p-3 sm:p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <Wallet className="w-3.5 h-3.5 text-white/80 flex-shrink-0" />
+                    <p className="text-white/80 text-xs font-medium truncate">E-Wallet Balance</p>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2">₱2,350</h2>
+                  <Button
+                    onClick={onNavigateToWallet}
+                    size="sm"
+                    className="bg-white/20 hover:bg-white/30 text-white border-white/30 rounded-lg h-7 text-xs backdrop-blur-sm w-fit"
+                  >
+                    <Plus className="w-3 h-3 mr-0.5" />
+                    Top-up
+                  </Button>
+                </div>
+                <motion.div
+                  animate={{ 
+                    rotate: [0, 10, -10, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20 flex-shrink-0"
+                >
+                  <CreditCard className="w-7 h-7 sm:w-9 sm:h-9 text-white/90" />
+                </motion.div>
               </div>
             </div>
+          </Card>
+        </motion.div>
 
-            <motion.div whileTap={{ scale: 0.9 }} className="flex-shrink-0">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="relative text-white hover:bg-white/10 backdrop-blur-sm rounded-lg w-10 h-10 flex items-center justify-center"
-                onClick={onNavigateToNotifications}
-              >
-                <Bell className="w-5 h-5" />
+        {/* Quick Actions - Horizontal Scroll */}
+        <div className="mt-3 -mx-4 px-4">
+          <ScrollArea className="w-full">
+            <div className="flex gap-2 pb-1.5">
+              {quickActions.map((action, index) => (
                 <motion.div
-                  className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </Button>
-            </motion.div>
-          </div>
-
-          {/* Balance Card - Compact Mobile */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Card className="bg-white/10 backdrop-blur-xl border-white/20 text-white overflow-hidden">
-              <div className="p-3 sm:p-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <Wallet className="w-3.5 h-3.5 text-white/80 flex-shrink-0" />
-                      <p className="text-white/80 text-xs font-medium truncate">E-Wallet Balance</p>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold mb-2">₱2,350</h2>
-                    <Button
-                      onClick={onNavigateToWallet}
-                      size="sm"
-                      className="bg-white/20 hover:bg-white/30 text-white border-white/30 rounded-lg h-7 text-xs backdrop-blur-sm w-fit"
-                    >
-                      <Plus className="w-3 h-3 mr-0.5" />
-                      Top-up
-                    </Button>
-                  </div>
-                  <motion.div
-                    animate={{ 
-                      rotate: [0, 10, -10, 0],
-                      scale: [1, 1.1, 1]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20 flex-shrink-0"
+                  key={action.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    onClick={action.action}
+                    className={`flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br ${action.color} text-white rounded-xl sm:rounded-2xl shadow-lg border-0 relative overflow-hidden group flex-shrink-0`}
                   >
-                    <CreditCard className="w-7 h-7 sm:w-9 sm:h-9 text-white/90" />
-                  </motion.div>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
-          {/* Quick Actions - Horizontal Scroll */}
-          <div className="mt-3 -mx-4 px-4">
-            <ScrollArea className="w-full">
-              <div className="flex gap-2 pb-1.5">
-                {quickActions.map((action, index) => (
-                  <motion.div
-                    key={action.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      onClick={action.action}
-                      className={`flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br ${action.color} text-white rounded-xl sm:rounded-2xl shadow-lg border-0 relative overflow-hidden group flex-shrink-0`}
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-white/20"
-                        initial={{ scale: 0, opacity: 0 }}
-                        whileHover={{ scale: 2, opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                      <action.icon className="w-5 h-5 sm:w-6 sm:h-6 mb-0.5 relative z-10" />
-                      <span className="text-[9px] sm:text-[10px] font-semibold relative z-10 text-center">{action.label}</span>
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
+                    <motion.div
+                      className="absolute inset-0 bg-white/20"
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 2, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    <action.icon className="w-5 h-5 sm:w-6 sm:h-6 mb-0.5 relative z-10" />
+                    <span className="text-[9px] sm:text-[10px] font-semibold relative z-10 text-center">{action.label}</span>
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
-      </motion.div>
+      </div>
 
       {/* Main Content with Tabs */}
       <div className="flex-1 overflow-hidden flex flex-col px-3 sm:px-4 py-3 sm:py-4">
