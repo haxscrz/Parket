@@ -432,7 +432,7 @@ export function HomeScreenRevamped({
             </TabsContent>
 
             {/* AI Insights Tab */}
-            <TabsContent value="ai-insights" className="space-y-3 sm:space-y-4 mt-0 pb-6">
+            <TabsContent value="ai-insights" className="mt-0 pb-2">
               <AnimatePresence mode="wait">
                 <motion.div
                   key="ai-insights"
@@ -440,22 +440,28 @@ export function HomeScreenRevamped({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="space-y-3 sm:space-y-4"
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-3"
                 >
-                  <BestTimeSuggestions 
-                    location="SM Dasmarinas" 
-                    darkMode={darkMode}
-                  />
+                  <div>
+                    <BestTimeSuggestions 
+                      location="SM Dasmarinas" 
+                      darkMode={darkMode}
+                    />
+                  </div>
                   
-                  <PeakHoursChart 
-                    location="SM Dasmarinas"
-                    darkMode={darkMode}
-                  />
+                  <div>
+                    <PeakHoursChart 
+                      location="SM Dasmarinas"
+                      darkMode={darkMode}
+                    />
+                  </div>
 
-                  <HistoricalTrendsAnimation
-                    location="SM Dasmarinas"
-                    darkMode={darkMode}
-                  />
+                  <div className="lg:col-span-2">
+                    <HistoricalTrendsAnimation
+                      location="SM Dasmarinas"
+                      darkMode={darkMode}
+                    />
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </TabsContent>

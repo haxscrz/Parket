@@ -87,31 +87,31 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
 
   return (
     <Card className="bg-card border-border">
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-4">
+      <div className="p-3">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+              <Brain className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-foreground">AI Peak Hours Analysis</h3>
-              <p className="text-xs text-muted-foreground">ML-powered predictions</p>
+              <h3 className="font-bold text-sm text-foreground">AI Peak Hours</h3>
+              <p className="text-xs text-muted-foreground">ML predictions</p>
             </div>
           </div>
-          <Badge className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30">
+          <Badge className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30 text-xs">
             <Sparkles className="w-3 h-3 mr-1" />
-            94% Accurate
+            94%
           </Badge>
         </div>
 
         {/* Chart */}
         <motion.div 
-          className="mb-6"
+          className="mb-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={140}>
             <BarChart data={visibleData}>
               <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#374151' : '#e5e7eb'} />
               <XAxis 
@@ -174,33 +174,27 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
 
         {/* Peak Hours List */}
         <div>
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2">
             <AlertTriangle className="w-4 h-4 text-red-500" />
-            <h4 className="text-sm font-semibold text-foreground">Top Peak Times to Avoid</h4>
+            <h4 className="text-xs font-semibold text-foreground">Peak Times</h4>
           </div>
-          <div className="space-y-2">
-            {peakHours.map((peak, index) => (
+          <div className="space-y-1">
+            {peakHours.slice(0, 2).map((peak, index) => (
               <div 
                 key={index}
-                className="flex items-center justify-between p-3 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30"
+                className="flex items-center justify-between p-2 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-4 h-4 text-red-600 dark:text-red-400" />
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center flex-shrink-0">
+                    <TrendingUp className="w-3 h-3 text-red-600 dark:text-red-400" />
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{peak.day}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-foreground">{peak.day}</p>
                     <p className="text-xs text-muted-foreground">{peak.time}</p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-bold text-red-600 dark:text-red-400">{peak.occupancy}% Full</p>
-                  <Badge 
-                    variant="outline" 
-                    className="text-xs border-red-300 dark:border-red-800 text-red-600 dark:text-red-400"
-                  >
-                    {peak.severity}
-                  </Badge>
+                <div className="text-right flex-shrink-0 ml-2">
+                  <p className="text-xs font-bold text-red-600 dark:text-red-400">{peak.occupancy}%</p>
                 </div>
               </div>
             ))}
@@ -208,10 +202,10 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
         </div>
 
         {/* Info Badge */}
-        <div className="mt-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/30">
+        <div className="mt-2 p-2 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/30">
           <p className="text-xs text-blue-700 dark:text-blue-300">
             <Sparkles className="w-3 h-3 inline mr-1" />
-            Weekend peak hours typically occur <strong>Friday-Sunday, 12 PM - 6 PM</strong>
+            Peak hours: <strong>Fri-Sun, 12-6 PM</strong>
           </p>
         </div>
       </div>

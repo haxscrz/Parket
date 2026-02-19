@@ -84,29 +84,29 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
 
   return (
     <Card className="bg-card border-border">
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-4">
+      <div className="p-3">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-foreground">Best Time to Park</h3>
-              <p className="text-xs text-muted-foreground">AI-optimized recommendations</p>
+              <h3 className="font-bold text-sm text-foreground">Best Time to Park</h3>
+              <p className="text-xs text-muted-foreground">AI recommendations</p>
             </div>
           </div>
         </div>
 
         {/* Current Status Card */}
         <motion.div 
-          className="mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 dark:border-purple-500/20"
+          className="mb-3 p-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 dark:border-purple-500/20"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-2">
             <motion.div 
-              className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0"
+              className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0"
               animate={{ 
                 scale: [1, 1.1, 1],
                 rotate: [0, 5, -5, 0]
@@ -117,17 +117,17 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
                 ease: "easeInOut"
               }}
             >
-              <TrendingDown className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <TrendingDown className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             </motion.div>
-            <div className="flex-1">
-              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">Right Now</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-0.5">Right Now</p>
               <AnimatePresence mode="wait">
                 <motion.p 
                   key={currentRecommendation}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="text-sm text-foreground"
+                  className="text-xs text-foreground"
                 >
                   {currentRecommendation}
                 </motion.p>
@@ -137,42 +137,42 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
         </motion.div>
 
         {/* Best Times List */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-green-600 dark:text-green-400" />
-            <h4 className="text-sm font-semibold text-foreground">Top 5 Best Times This Week</h4>
+            <h4 className="text-xs font-semibold text-foreground">Top 3 Best Times</h4>
           </div>
 
-          {bestTimes.map((time, index) => (
+          {bestTimes.slice(0, 3).map((time, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`p-4 rounded-xl border transition-all hover:shadow-lg cursor-pointer ${getRecommendationColor(time.recommendation)}`}
+              className={`p-2 rounded-lg border transition-all hover:shadow-lg cursor-pointer text-sm ${getRecommendationColor(time.recommendation)}`}
               onClick={() => onSelectTime?.(time.day, time.time)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/50 dark:bg-black/20">
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center w-6 h-6 rounded bg-white/50 dark:bg-black/20">
                     {getRecommendationIcon(time.recommendation)}
                   </div>
-                  <div>
-                    <p className="font-semibold text-sm">{time.day}</p>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-xs">{time.day}</p>
                     <p className="text-xs opacity-80">{time.time}</p>
                   </div>
                 </div>
-                <Badge className="bg-white/50 dark:bg-black/20 border-0">
+                <Badge className="bg-white/50 dark:bg-black/20 border-0 text-xs">
                   {time.recommendation}
                 </Badge>
               </div>
 
               {/* Progress Bar */}
-              <div className="mt-3">
-                <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="opacity-80">Availability</span>
+              <div className="mt-1.5">
+                <div className="flex items-center justify-between text-xs mb-0.5">
+                  <span className="opacity-80">Avail</span>
                   <motion.span 
                     className="font-bold"
                     initial={{ opacity: 0 }}
@@ -182,7 +182,7 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
                     {time.availability}%
                   </motion.span>
                 </div>
-                <div className="w-full bg-white/30 dark:bg-black/20 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-white/30 dark:bg-black/20 rounded-full h-1.5 overflow-hidden">
                   <motion.div
                     className="h-full bg-current rounded-full"
                     initial={{ width: 0 }}
