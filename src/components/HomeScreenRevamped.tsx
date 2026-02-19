@@ -70,75 +70,185 @@ export function HomeScreenRevamped({
   return (
     <div className="w-full h-screen bg-white dark:bg-slate-950 flex flex-col overflow-hidden">
       {/* Premium Gradient Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#193654] via-[#1e4670] to-[#0f1f35] pt-6 pb-8 px-4 sm:px-6">
+      <div style={{
+        background: "linear-gradient(to bottom right, #193654, #1e4670, #0f1f35)",
+        paddingTop: "24px",
+        paddingBottom: "32px",
+        paddingLeft: "16px",
+        paddingRight: "16px",
+        position: "relative",
+        overflow: "hidden"
+      }}>
         {/* Top Bar with Greeting & Notification */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex-1 min-w-0">
-            <h1 className="text-white font-bold text-2xl sm:text-3xl mb-1 leading-tight">
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h1 style={{ color: "white", fontWeight: "bold", fontSize: "28px", marginBottom: "4px", lineHeight: "1.2" }}>
               Good morning, Hans! 👋
             </h1>
-            <p className="text-white/70 text-sm sm:text-base font-medium">
+            <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "16px", fontWeight: "500" }}>
               Let's find you the perfect spot
             </p>
           </div>
           <button
             onClick={onNavigateToNotifications}
-            className="relative flex-shrink-0 p-2.5 sm:p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all ml-3"
+            style={{
+              flexShrink: 0,
+              padding: "10px 12px",
+              borderRadius: "8px",
+              backgroundColor: "rgba(255,255,255,0.1)",
+              border: "1px solid rgba(255,255,255,0.2)",
+              cursor: "pointer",
+              marginLeft: "12px",
+              position: "relative"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.2)"}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"}
           >
-            <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+            <Bell style={{ width: "20px", height: "20px", color: "white" }} />
+            <span style={{
+              position: "absolute",
+              top: "4px",
+              right: "4px",
+              width: "10px",
+              height: "10px",
+              backgroundColor: "#ef4444",
+              borderRadius: "50%",
+              animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+            }} />
           </button>
         </div>
 
         {/* Premium Balance Card */}
-        <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-2xl border border-white/20 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl overflow-hidden hover:shadow-3xl transition-all hover:from-white/20 hover:to-white/10 group">
-          <div className="flex items-start justify-between gap-4">
+        <div style={{
+          background: "linear-gradient(to bottom right, rgba(255,255,255,0.15), rgba(255,255,255,0.05))",
+          backdropFilter: "blur(32px)",
+          border: "1px solid rgba(255,255,255,0.2)",
+          borderRadius: "24px",
+          padding: "24px",
+          boxShadow: "0 20px 25px rgba(0,0,0,0.2)",
+          overflow: "hidden",
+          transition: "all 0.3s ease"
+        }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
             {/* Balance Info */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-2 rounded-lg bg-white/10 backdrop-blur-md group-hover:bg-white/20 transition-all">
-                  <Wallet className="w-4 h-4 sm:w-5 sm:h-5 text-white/90" />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                <div style={{
+                  padding: "8px",
+                  borderRadius: "8px",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}>
+                  <Wallet style={{ width: "16px", height: "16px", color: "rgba(255,255,255,0.9)" }} />
                 </div>
-                <span className="text-white/70 text-xs sm:text-sm font-semibold uppercase tracking-wide">E-Wallet</span>
+                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "12px", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase" }}>E-Wallet</span>
               </div>
-              <h2 className="text-white text-4xl sm:text-5xl font-black mb-2">
+              <h2 style={{ color: "white", fontSize: "48px", fontWeight: "900", marginBottom: "8px" }}>
                 ₱2,350
               </h2>
-              <p className="text-white/60 text-xs sm:text-sm font-medium">Available balance</p>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", fontWeight: "500" }}>Available balance</p>
             </div>
 
             {/* Animated Icon */}
-            <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#2a5a8a] to-[#1e4670] rounded-2xl flex items-center justify-center shadow-lg border border-white/10 group-hover:scale-110 transition-transform">
-              <CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-white/80" />
+            <div style={{
+              flexShrink: 0,
+              width: "64px",
+              height: "64px",
+              background: "linear-gradient(to bottom right, #2a5a8a, #1e4670)",
+              borderRadius: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 10px 15px rgba(0,0,0,0.2)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              transition: "transform 0.3s ease"
+            }}>
+              <CreditCard style={{ width: "32px", height: "32px", color: "rgba(255,255,255,0.8)" }} />
             </div>
           </div>
 
           {/* Action Button */}
           <button
             onClick={onNavigateToWallet}
-            className="mt-4 w-full bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl sm:rounded-2xl transition-all flex items-center justify-center gap-2 text-sm sm:text-base hover:scale-105"
+            style={{
+              marginTop: "16px",
+              width: "100%",
+              background: "linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.1))",
+              backdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,255,255,0.3)",
+              color: "white",
+              fontWeight: "600",
+              padding: "12px 16px",
+              borderRadius: "12px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              fontSize: "14px",
+              transition: "all 0.3s ease"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "linear-gradient(to right, rgba(255,255,255,0.3), rgba(255,255,255,0.2))";
+              e.currentTarget.style.transform = "scale(1.02)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.1))";
+              e.currentTarget.style.transform = "scale(1)";
+            }}
           >
-            <Plus className="w-4 h-4" />
+            <Plus style={{ width: "16px", height: "16px" }} />
             <span>Top-up Balance</span>
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <span style={{ marginLeft: "4px" }}>→</span>
           </button>
         </div>
 
         {/* Enhanced Quick Actions */}
-        <div className="mt-6 -mx-4 sm:mx-0 px-4 sm:px-0">
-          <div className="flex gap-2.5 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
-            {quickActions.map((action, index) => (
-              <button
-                key={action.label}
-                onClick={action.action}
-                className={`flex flex-col items-center justify-center w-18 sm:w-24 h-20 sm:h-24 bg-gradient-to-br ${action.color} text-white rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 backdrop-blur-md hover:shadow-2xl hover:scale-110 transition-all relative overflow-hidden flex-shrink-0 group`}
-              >
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                <action.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-1.5 relative z-10 text-white/95" />
-                <span className="text-[10px] sm:text-xs font-bold relative z-10 text-center uppercase tracking-wide">{action.label}</span>
-              </button>
-            ))}
-          </div>
+        <div style={{ marginTop: "24px", display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "8px" }}>
+          {quickActions.map((action, index) => (
+            <button
+              key={action.label}
+              onClick={action.action}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "96px",
+                height: "96px",
+                backgroundImage: `linear-gradient(to bottom right, var(--color-1), var(--color-2))`,
+                color: "white",
+                borderRadius: "20px",
+                boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                backdropFilter: "blur(16px)",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                position: "relative",
+                overflow: "hidden",
+                flexShrink: 0,
+                background: action.color.replace("bg-gradient-to-br ", "").replace("from-", "linear-gradient(to bottom right, ").replace("to-", ", ") + ")",
+                fontSize: "10px",
+                fontWeight: "bold",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                textAlign: "center"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.08)";
+                e.currentTarget.style.boxShadow = "0 20px 30px rgba(0,0,0,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.2)";
+              }}
+            >
+              <action.icon style={{ width: "24px", height: "24px", marginBottom: "6px", color: "rgba(255,255,255,0.95)" }} />
+              <span>{action.label}</span>
+            </button>
+          ))}
         </div>
       </div>
 
