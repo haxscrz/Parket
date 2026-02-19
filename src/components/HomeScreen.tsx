@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -14,8 +15,12 @@ import {
   Star,
   Zap,
   History,
-  QrCode
+  QrCode,
+  Brain,
+  TrendingUp,
+  Sparkles
 } from "lucide-react";
+import { ParkingRecommender, ParkingPrediction } from "../ml";
 
 interface HomeScreenProps {
   onNavigateToParking: () => void;
@@ -32,6 +37,12 @@ export function HomeScreen({
   onNavigateToNotifications,
   darkMode,
 }: HomeScreenProps) {
+  // ML State
+  const [mlPredictions, setMlPredictions] = useState<ParkingPrediction[]>([]);
+  const [mlInsights, setMlInsights] = useState<string[]>([]);
+  const [isMLReady, setIsMLReady] = useState(false);
+  const [isMLLoading, setIsMLLoading] = useState(true);
+
   const locations = [
     { name: "SM Dasmarinas", price: "₱25/hr", distance: "2.1 km", rating: 4.5, availability: 45 },
     { name: "Mall of Asia", price: "₱35/hr", distance: "5.8 km", rating: 4.8, availability: 12 },
@@ -53,6 +64,53 @@ export function HomeScreen({
     { icon: QrCode, label: "QR Scanner", color: "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400" },
     { icon: Settings, label: "Settings", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" }
   ];
+
+  // Initialize ML Recommender
+  useEffect(() => {
+    const initializeML = async () => {
+      try {
+        console.log('🤖 Initializing ML Recommender...');
+        const recommender = new ParkingRecommender();
+        await recommender.initialize();
+        
+        // Get ML-powered recommendations
+        const predictions = await recommender.getRecommendations(locations);
+        const insights = recommender.getInsights(predictions);
+        
+        setMlPredictions(predictions);
+        setMlInsights(insights);
+        setIsMLReady(true);
+        console.log('✅ ML Ready! Predictions:', predictions);
+      } catch (error) {
+        console.error('❌ ML initialization failed:', error);
+      } finally {
+        setIsMLLoading(false);
+      }
+    };
+
+    initializeML();
+  }, []);
+
+  // Get sorted locations based on ML recommendations
+  const getSortedLocations = () => {
+    if (!isMLReady || mlPredictions.length === 0) {
+      return locations;
+    }
+
+    // Merge ML predictions with location data
+    return locations
+      .map(loc => {
+        const prediction = mlPredictions.find(p => p.location === loc.name);
+        return {
+          ...loc,
+          mlScore: prediction?.recommendationScore || 0,
+          predictedAvailability: prediction?.predictedAvailability || loc.availability
+        };
+      })
+      .sort((a, b) => b.mlScore - a.mlScore);
+  };
+
+  const sortedLocations = getSortedLocations();
 
   return (
     <div className="min-h-screen bg-background">
@@ -170,46 +228,107 @@ export function HomeScreen({
           </div>
         </Card>
 
+        {/* ML Insights Card */}
+        {isMLReady && mlInsights.length > 0 && (
+          <Card className="bg-gradient-to-br from-purple-500 to-blue-500 text-white border-0">
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Brain className="w-5 h-5" />
+                <h3 className="font-semibold">AI Insights</h3>
+                {isMLLoading && <Sparkles className="w-4 h-4 animate-pulse" />}
+              </div>
+              <div className="space-y-2">
+                {mlInsights.map((insight, index) => (
+                  <div key={index} className="flex items-start gap-2 text-sm text-white/90">
+                    <TrendingUp className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                    <p>{insight}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
+        )}
+
+        {/* ML Loading Indicator */}
+        {isMLLoading && (
+          <Card className="bg-card border-border">
+            <div className="p-5 flex items-center justify-center gap-3">
+              <Brain className="w-5 h-5 text-primary animate-pulse" />
+              <p className="text-sm text-muted-foreground">Training AI model...</p>
+            </div>
+          </Card>
+        )}
+
         {/* Popular Locations */}
         <Card className="bg-card border-border">
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-foreground">Popular Locations</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold text-foreground">
+                  {isMLReady ? "AI Recommended" : "Popular Locations"}
+                </h3>
+                {isMLReady && (
+                  <Badge className="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 text-xs">
+                    <Brain className="w-3 h-3 mr-1" />
+                    Smart
+                  </Badge>
+                )}
+              </div>
               <Button variant="ghost" size="sm" className="text-primary">
                 View All
               </Button>
             </div>
             <div className="space-y-3">
-              {locations.slice(0, 3).map((location) => (
-                <div
-                  key={location.name}
-                  className="flex items-center justify-between p-3 rounded-xl bg-muted/50 hover:bg-muted cursor-pointer transition-colors"
-                  onClick={onNavigateToParking}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-foreground text-sm">{location.name}</h4>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{location.distance}</span>
-                        <span>•</span>
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                          <span>{location.rating}</span>
+              {sortedLocations.slice(0, 3).map((location) => {
+                const mlData = mlPredictions.find(p => p.location === location.name);
+                const showMLScore = isMLReady && mlData;
+                
+                return (
+                  <div
+                    key={location.name}
+                    className="flex items-center justify-between p-3 rounded-xl bg-muted/50 hover:bg-muted cursor-pointer transition-colors"
+                    onClick={onNavigateToParking}
+                  >
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                        <MapPin className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium text-foreground text-sm">{location.name}</h4>
+                          {showMLScore && mlData.recommendationScore >= 80 && (
+                            <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs px-1">
+                              Top Pick
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <span>{location.distance}</span>
+                          <span>•</span>
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                            <span>{location.rating}</span>
+                          </div>
+                          {showMLScore && (
+                            <>
+                              <span>•</span>
+                              <span className="text-purple-600 dark:text-purple-400">
+                                {mlData.recommendationScore}% match
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-foreground text-sm">{location.price}</p>
+                      <p className="text-xs text-green-600 dark:text-green-400">
+                        {showMLScore ? mlData.predictedAvailability : location.availability} spots
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-foreground text-sm">{location.price}</p>
-                    <p className="text-xs text-green-600 dark:text-green-400">
-                      {location.availability} spots
-                    </p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </Card>

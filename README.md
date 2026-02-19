@@ -1,8 +1,20 @@
 # 🅿️ Parket - Smart Parking App
 
-This is the code for **Parket**, a smart parking app UI design. Find and navigate to parking spots easily!
+This is the code for **Parket**, a smart parking app UI design with **Machine Learning** capabilities. Find and navigate to parking spots easily with AI-powered recommendations!
 
 Original design: https://www.figma.com/design/JCgzoMLIenYl8cBqWWyEtC/Smart-Parking-App-UI-Design
+
+---
+
+## ✨ Features
+
+- 🤖 **AI-Powered Recommendations** - Machine learning predicts parking availability
+- 🎯 **Smart Parking** - Get personalized spot recommendations based on your preferences
+- 🗺️ **Navigation** - Real-time pathfinding to your parking spot
+- 💰 **E-Wallet** - Integrated payment system
+- 📊 **Parking History** - Track your past parking sessions
+- 🔔 **Notifications** - Stay updated on parking status
+- 🌙 **Dark Mode** - Eye-friendly night theme
 
 ---
 
@@ -64,9 +76,23 @@ npm --version
 
 - **React** - UI framework
 - **TypeScript** - Programming language
+- **TensorFlow.js** - Machine Learning
 - **Vite** - Super fast build tool
 - **Tailwind CSS** - Styling
+- **Framer Motion** - Animations
 - **Figma** - Design tool
+
+---
+
+## 🤖 Machine Learning
+
+Parket uses **TensorFlow.js** to provide intelligent features:
+
+- **Availability Prediction**: Predicts parking spot availability based on time, location, and patterns
+- **Smart Recommendations**: Ranks parking locations using ML-powered scoring
+- **AI Insights**: Real-time recommendations and predictions displayed in the app
+
+For detailed ML documentation, see [ML_INTEGRATION.md](ML_INTEGRATION.md)
 
 ---
 
@@ -76,6 +102,7 @@ npm --version
 Parket/
 ├── src/
 │   ├── components/        # React components
+│   ├── ml/               # Machine Learning modules
 │   ├── App.tsx           # Main app
 │   └── main.tsx          # Entry point
 ├── package.json          # Dependencies
