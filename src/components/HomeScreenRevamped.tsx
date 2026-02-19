@@ -183,14 +183,12 @@ export function HomeScreenRevamped({
                               {/* Availability Bar */}
                               <div className="flex items-center gap-2">
                                 <div className="flex-1 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                                  <motion.div
+                                  <div
                                     className={`h-full rounded-full ${
                                       location.availability > 50 ? 'bg-[#193654]' : 
                                       location.availability > 20 ? 'bg-orange-500' : 'bg-red-500'
                                     }`}
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${Math.min(100, (location.availability / 200) * 100)}%` }}
-                                    transition={{ duration: 1, delay: index * 0.1 }}
+                                    style={{ width: `${Math.min(100, Math.max(0, (location.availability / 200) * 100))}%` }}
                                   />
                                 </div>
                                 <motion.div
