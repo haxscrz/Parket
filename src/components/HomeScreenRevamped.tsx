@@ -72,20 +72,20 @@ export function HomeScreenRevamped({
       {/* Premium Gradient Header */}
       <div style={{
         background: "linear-gradient(to bottom right, #193654, #1e4670, #0f1f35)",
-        paddingTop: "24px",
-        paddingBottom: "32px",
+        paddingTop: "12px",
+        paddingBottom: "12px",
         paddingLeft: "16px",
         paddingRight: "16px",
         position: "relative",
         overflow: "hidden"
       }}>
         {/* Top Bar with Greeting & Notification */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <h1 style={{ color: "white", fontWeight: "bold", fontSize: "28px", marginBottom: "4px", lineHeight: "1.2" }}>
+            <h1 style={{ color: "white", fontWeight: "bold", fontSize: "20px", marginBottom: "2px", lineHeight: "1.2" }}>
               Good morning, Hans! 👋
             </h1>
-            <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "16px", fontWeight: "500" }}>
+            <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: "500" }}>
               Let's find you the perfect spot
             </p>
           </div>
@@ -93,8 +93,8 @@ export function HomeScreenRevamped({
             onClick={onNavigateToNotifications}
             style={{
               flexShrink: 0,
-              padding: "10px 12px",
-              borderRadius: "8px",
+              padding: "6px 8px",
+              borderRadius: "6px",
               backgroundColor: "rgba(255,255,255,0.1)",
               border: "1px solid rgba(255,255,255,0.2)",
               cursor: "pointer",
@@ -104,13 +104,13 @@ export function HomeScreenRevamped({
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.2)"}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"}
           >
-            <Bell style={{ width: "20px", height: "20px", color: "white" }} />
+            <Bell style={{ width: "16px", height: "16px", color: "white" }} />
             <span style={{
               position: "absolute",
-              top: "4px",
-              right: "4px",
-              width: "10px",
-              height: "10px",
+              top: "2px",
+              right: "2px",
+              width: "8px",
+              height: "8px",
               backgroundColor: "#ef4444",
               borderRadius: "50%",
               animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
@@ -123,41 +123,42 @@ export function HomeScreenRevamped({
           background: "linear-gradient(to bottom right, rgba(255,255,255,0.15), rgba(255,255,255,0.05))",
           backdropFilter: "blur(32px)",
           border: "1px solid rgba(255,255,255,0.2)",
-          borderRadius: "24px",
-          padding: "24px",
+          borderRadius: "16px",
+          padding: "14px",
           boxShadow: "0 20px 25px rgba(0,0,0,0.2)",
           overflow: "hidden",
-          transition: "all 0.3s ease"
+          transition: "all 0.3s ease",
+          marginBottom: "10px"
         }}>
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px" }}>
             {/* Balance Info */}
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
                 <div style={{
-                  padding: "8px",
-                  borderRadius: "8px",
+                  padding: "4px",
+                  borderRadius: "6px",
                   backgroundColor: "rgba(255,255,255,0.1)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center"
                 }}>
-                  <Wallet style={{ width: "16px", height: "16px", color: "rgba(255,255,255,0.9)" }} />
+                  <Wallet style={{ width: "12px", height: "12px", color: "rgba(255,255,255,0.9)" }} />
                 </div>
-                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "12px", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase" }}>E-Wallet</span>
+                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "10px", fontWeight: "600", letterSpacing: "0.05em", textTransform: "uppercase" }}>E-Wallet</span>
               </div>
-              <h2 style={{ color: "white", fontSize: "48px", fontWeight: "900", marginBottom: "8px" }}>
+              <h2 style={{ color: "white", fontSize: "32px", fontWeight: "900", marginBottom: "2px", lineHeight: "1" }}>
                 ₱2,350
               </h2>
-              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", fontWeight: "500" }}>Available balance</p>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "11px", fontWeight: "500" }}>Available balance</p>
             </div>
 
             {/* Animated Icon */}
             <div style={{
               flexShrink: 0,
-              width: "64px",
-              height: "64px",
+              width: "48px",
+              height: "48px",
               background: "linear-gradient(to bottom right, #2a5a8a, #1e4670)",
-              borderRadius: "16px",
+              borderRadius: "12px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -165,7 +166,7 @@ export function HomeScreenRevamped({
               border: "1px solid rgba(255,255,255,0.1)",
               transition: "transform 0.3s ease"
             }}>
-              <CreditCard style={{ width: "32px", height: "32px", color: "rgba(255,255,255,0.8)" }} />
+              <CreditCard style={{ width: "24px", height: "24px", color: "rgba(255,255,255,0.8)" }} />
             </div>
           </div>
 
@@ -173,21 +174,21 @@ export function HomeScreenRevamped({
           <button
             onClick={onNavigateToWallet}
             style={{
-              marginTop: "16px",
+              marginTop: "10px",
               width: "100%",
               background: "linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.1))",
               backdropFilter: "blur(16px)",
               border: "1px solid rgba(255,255,255,0.3)",
               color: "white",
               fontWeight: "600",
-              padding: "12px 16px",
-              borderRadius: "12px",
+              padding: "8px 12px",
+              borderRadius: "10px",
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "8px",
-              fontSize: "14px",
+              gap: "6px",
+              fontSize: "12px",
               transition: "all 0.3s ease"
             }}
             onMouseEnter={(e) => {
@@ -199,14 +200,14 @@ export function HomeScreenRevamped({
               e.currentTarget.style.transform = "scale(1)";
             }}
           >
-            <Plus style={{ width: "16px", height: "16px" }} />
+            <Plus style={{ width: "14px", height: "14px" }} />
             <span>Top-up Balance</span>
-            <span style={{ marginLeft: "4px" }}>→</span>
+            <span style={{ marginLeft: "2px" }}>→</span>
           </button>
         </div>
 
         {/* Enhanced Quick Actions */}
-        <div style={{ marginTop: "24px", display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "8px" }}>
+        <div style={{ display: "flex", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
           {quickActions.map((action, index) => (
             <button
               key={action.label}
@@ -216,11 +217,10 @@ export function HomeScreenRevamped({
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "96px",
-                height: "96px",
-                backgroundImage: `linear-gradient(to bottom right, var(--color-1), var(--color-2))`,
+                width: "72px",
+                height: "72px",
                 color: "white",
-                borderRadius: "20px",
+                borderRadius: "14px",
                 boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
                 border: "1px solid rgba(255,255,255,0.2)",
                 backdropFilter: "blur(16px)",
@@ -230,22 +230,23 @@ export function HomeScreenRevamped({
                 overflow: "hidden",
                 flexShrink: 0,
                 background: action.color.replace("bg-gradient-to-br ", "").replace("from-", "linear-gradient(to bottom right, ").replace("to-", ", ") + ")",
-                fontSize: "10px",
+                fontSize: "9px",
                 fontWeight: "bold",
                 textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                textAlign: "center"
+                letterSpacing: "0.02em",
+                textAlign: "center",
+                padding: "6px"
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "scale(1.08)";
-                e.currentTarget.style.boxShadow = "0 20px 30px rgba(0,0,0,0.3)";
+                e.currentTarget.style.boxShadow = "0 15px 30px rgba(0,0,0,0.3)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "scale(1)";
                 e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.2)";
               }}
             >
-              <action.icon style={{ width: "24px", height: "24px", marginBottom: "6px", color: "rgba(255,255,255,0.95)" }} />
+              <action.icon style={{ width: "18px", height: "18px", marginBottom: "4px", color: "rgba(255,255,255,0.95)" }} />
               <span>{action.label}</span>
             </button>
           ))}
