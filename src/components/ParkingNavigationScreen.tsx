@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from './ui/dropdown-menu';
+import { SmartSlotRecommendation } from './SmartSlotRecommendation';
 import carImage from '../assets/user_car.svg';
 
 // ============================================================================
@@ -732,6 +733,34 @@ export function ParkingNavigationScreen({ onBack, darkMode }: { onBack: () => vo
             </Badge>
           )}
         </div>
+
+        {/* ML Smart Slot Recommendation - Show when not navigating and not parked */}
+        {!isNavigating && !isParked && !isAutoMode && (
+          <div className={`px-4 py-3 border-t ${isDarkMode ? 'border-zinc-800' : 'border-gray-200'}`}>
+            <SmartSlotRecommendation 
+              location="SM Dasmarinas"
+              onAcceptRecommendation={(slotId) => {
+                // Find the recommended slot
+                const recommendedSlot = parkingLayout.slots.find(s => 
+                  s.label === slotId || s.id.includes(slotId)
+                );
+                if (recommendedSlot && (recommendedSlot.type === 'available' || recommendedSlot.type === 'pwd' || recommendedSlot.type === 'ev')) {
+                  setSelectedSlot(recommendedSlot);
+                  // Auto-start navigation
+                  setTimeout(() => {
+                    const origin = { x: carPosition.x, y: carPosition.y };
+                    const newPath = findPathToSlot(origin.x, origin.y, recommendedSlot);
+                    setPathPointsState(newPath);
+                    setNavigationProgress(0);
+                    setPassedWaypoints(0);
+                    setIsNavigating(true);
+                  }, 500);
+                }
+              }}
+              darkMode={isDarkMode}
+            />
+          </div>
+        )}
 
         {/* Filter Buttons - Only in manual mode */}
         {!isAutoMode && !isNavigating && (
