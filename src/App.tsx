@@ -50,7 +50,7 @@ export default function App() {
   return (
     <div className={`${darkMode ? 'dark' : ''}`}>
       {currentScreen === 'home' && (
-        <HomeScreenRevamped
+        <HomeScreen
           onNavigateToParking={() => navigateToScreen('parking')}
           onNavigateToProfile={() => navigateToScreen('profile')}
           onNavigateToWallet={() => navigateToScreen('wallet')}
