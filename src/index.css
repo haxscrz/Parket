@@ -3281,3 +3281,5 @@ body {
 .animate-glow {
   animation: glow 2s ease-in-out infinite;
 }
+/* Mobile responsive optimizations */
+@import './styles/mobile-responsive.css';
