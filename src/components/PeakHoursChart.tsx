@@ -86,32 +86,21 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
   }
 
   return (
-    <Card className="bg-card border-border">
-      <div className="p-3">
+    <div className="space-y-3">
+      {/* Chart */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <Brain className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <h3 className="font-bold text-sm text-foreground">AI Peak Hours</h3>
-              <p className="text-xs text-muted-foreground">ML predictions</p>
-            </div>
-          </div>
+          <p className="text-xs font-medium text-muted-foreground">Hourly Occupancy</p>
           <Badge className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30 text-xs">
             <Sparkles className="w-3 h-3 mr-1" />
-            94%
+            94% Accurate
           </Badge>
         </div>
-
-        {/* Chart */}
-        <motion.div 
-          className="mb-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <ResponsiveContainer width="100%" height={140}>
+        <ResponsiveContainer width="100%" height={140}>
             <BarChart data={visibleData}>
               <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#374151' : '#e5e7eb'} />
               <XAxis 
@@ -209,6 +198,5 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
           </p>
         </div>
       </div>
-    </Card>
   );
 }

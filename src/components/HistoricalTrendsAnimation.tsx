@@ -73,90 +73,62 @@ export function HistoricalTrendsAnimation({ location, darkMode }: HistoricalTren
     : 0;
 
   return (
-    <Card className="bg-card border-border overflow-hidden">
-      <div className="p-3">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <motion.div 
-              className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center"
-              animate={{ 
-                scale: [1, 1.05, 1],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ 
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <Activity className="w-4 h-4 text-white" />
-            </motion.div>
-            <div>
-              <h3 className="font-bold text-sm text-foreground">Live Analysis</h3>
-              <p className="text-xs text-muted-foreground">Real-time patterns</p>
-            </div>
-          </div>
-          <Badge className="bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-600 dark:text-orange-400 border-orange-500/30 text-xs">
-            <Activity className="w-3 h-3 mr-1 animate-pulse" />
-            Live
-          </Badge>
-        </div>
-
-        {/* Animated Stats */}
-        <div className="grid grid-cols-2 gap-2 mb-3">
-          <motion.div 
-            className="p-2 rounded-lg bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20"
-            animate={{ borderColor: ['rgba(249, 115, 22, 0.2)', 'rgba(249, 115, 22, 0.4)', 'rgba(249, 115, 22, 0.2)'] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <p className="text-xs text-muted-foreground mb-0.5">Current</p>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={currentOccupancy}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="text-lg font-bold text-foreground"
-              >
-                {currentOccupancy}%
-              </motion.p>
-            </AnimatePresence>
-          </motion.div>
-
-          <motion.div 
-            className="p-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20"
-            animate={{ borderColor: ['rgba(59, 130, 246, 0.2)', 'rgba(59, 130, 246, 0.4)', 'rgba(59, 130, 246, 0.2)'] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-          >
-            <p className="text-xs text-muted-foreground mb-0.5">Trend</p>
-            <div className="flex items-center gap-1">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={trendDirection}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  className="flex items-center gap-1"
-                >
-                  <TrendingUp 
-                    className={`w-4 h-4 ${trendDirection >= 0 ? 'text-green-500' : 'text-red-500 rotate-180'}`}
-                  />
-                  <span className={`text-sm font-bold ${trendDirection >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                    {trendDirection >= 0 ? '+' : ''}{trendDirection}%
-                  </span>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Animated Line Chart */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+    <div className="space-y-3">
+      {/* Animated Stats */}
+      <div className="grid grid-cols-2 gap-2">
+        <motion.div 
+          className="p-2 rounded-lg bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20"
+          animate={{ borderColor: ['rgba(249, 115, 22, 0.2)', 'rgba(249, 115, 22, 0.4)', 'rgba(249, 115, 22, 0.2)'] }}
+          transition={{ duration: 2, repeat: Infinity }}
         >
-          <ResponsiveContainer width="100%" height={120}>
+          <p className="text-xs text-muted-foreground mb-0.5">Current</p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentOccupancy}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="text-lg font-bold text-foreground"
+            >
+              {currentOccupancy}%
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
+
+        <motion.div 
+          className="p-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20"
+          animate={{ borderColor: ['rgba(59, 130, 246, 0.2)', 'rgba(59, 130, 246, 0.4)', 'rgba(59, 130, 246, 0.2)'] }}
+          transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+        >
+          <p className="text-xs text-muted-foreground mb-0.5">Trend</p>
+          <div className="flex items-center gap-1">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={trendDirection}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                className="flex items-center gap-1"
+              >
+                <TrendingUp 
+                  className={`w-4 h-4 ${trendDirection >= 0 ? 'text-green-500' : 'text-red-500 rotate-180'}`}
+                />
+                <span className={`text-sm font-bold ${trendDirection >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                  {trendDirection >= 0 ? '+' : ''}{trendDirection}%
+                </span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Animated Line Chart */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ResponsiveContainer width="100%" height={120}>
             <AreaChart data={displayData}>
               <defs>
                 <linearGradient id="occupancyGradient" x1="0" y1="0" x2="0" y2="1">
@@ -238,15 +210,6 @@ export function HistoricalTrendsAnimation({ location, darkMode }: HistoricalTren
             />
           </div>
         </div>
-
-        {/* Info */}
-        <div className="mt-2 p-2 rounded-lg bg-muted/50 border border-border">
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            <BarChart3 className="w-3 h-3" />
-            {allData.length} data points
-          </p>
-        </div>
       </div>
-    </Card>
   );
 }

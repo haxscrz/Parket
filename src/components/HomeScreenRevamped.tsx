@@ -4,6 +4,7 @@ import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { ScrollArea } from "./ui/scroll-area";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import {
   Wallet,
   Plus,
@@ -19,11 +20,15 @@ import {
   Sparkles,
   TrendingUp,
   ChevronRight,
+  ChevronDown,
   Brain,
   Activity,
   CreditCard,
   ArrowRight,
-  Target
+  Target,
+  Calendar,
+  AlertTriangle,
+  BarChart3
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PeakHoursChart } from "./PeakHoursChart";
@@ -440,28 +445,101 @@ export function HomeScreenRevamped({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-3"
+                  className="space-y-3"
                 >
-                  <div>
-                    <BestTimeSuggestions 
-                      location="SM Dasmarinas" 
-                      darkMode={darkMode}
-                    />
-                  </div>
-                  
-                  <div>
-                    <PeakHoursChart 
-                      location="SM Dasmarinas"
-                      darkMode={darkMode}
-                    />
-                  </div>
+                  {/* Quick Insights Summary - Always Visible */}
+                  <Card className="bg-gradient-to-r from-[#193654] to-[#2a5a8a] border-0 shadow-lg">
+                    <div className="p-3">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Brain className="w-4 h-4 text-white" />
+                        <h3 className="text-sm font-bold text-white">AI Quick Insights</h3>
+                        <Badge className="ml-auto bg-white/20 text-white border-0 text-xs">
+                          <Sparkles className="w-3 h-3 mr-1" />
+                          Live
+                        </Badge>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="bg-white/10 rounded-lg p-2 text-center">
+                          <p className="text-xs text-white/70">Best Time</p>
+                          <p className="text-sm font-bold text-white">2-4 PM</p>
+                        </div>
+                        <div className="bg-white/10 rounded-lg p-2 text-center">
+                          <p className="text-xs text-white/70">Occupancy</p>
+                          <p className="text-sm font-bold text-white">42%</p>
+                        </div>
+                        <div className="bg-white/10 rounded-lg p-2 text-center">
+                          <p className="text-xs text-white/70">Status</p>
+                          <p className="text-sm font-bold text-emerald-400">Good</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
 
-                  <div className="lg:col-span-2">
-                    <HistoricalTrendsAnimation
-                      location="SM Dasmarinas"
-                      darkMode={darkMode}
-                    />
-                  </div>
+                  {/* Collapsible Sections */}
+                  <Accordion type="single" collapsible className="space-y-2">
+                    {/* Best Times Section */}
+                    <AccordionItem value="best-times" className="border rounded-lg bg-card overflow-hidden">
+                      <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-muted/50">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                            <Calendar className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="text-left">
+                            <p className="font-semibold text-sm">Best Times to Park</p>
+                            <p className="text-xs text-muted-foreground">AI-optimized suggestions</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-3 pb-3">
+                        <BestTimeSuggestions 
+                          location="SM Dasmarinas" 
+                          darkMode={darkMode}
+                        />
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Peak Hours Section */}
+                    <AccordionItem value="peak-hours" className="border rounded-lg bg-card overflow-hidden">
+                      <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-muted/50">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                            <AlertTriangle className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="text-left">
+                            <p className="font-semibold text-sm">Peak Hours Analysis</p>
+                            <p className="text-xs text-muted-foreground">ML-powered predictions</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-3 pb-3">
+                        <PeakHoursChart 
+                          location="SM Dasmarinas"
+                          darkMode={darkMode}
+                        />
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Historical Trends Section */}
+                    <AccordionItem value="trends" className="border rounded-lg bg-card overflow-hidden">
+                      <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-muted/50">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                            <BarChart3 className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="text-left">
+                            <p className="font-semibold text-sm">Historical Trends</p>
+                            <p className="text-xs text-muted-foreground">Real-time patterns</p>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-3 pb-3">
+                        <HistoricalTrendsAnimation
+                          location="SM Dasmarinas"
+                          darkMode={darkMode}
+                        />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </motion.div>
               </AnimatePresence>
             </TabsContent>

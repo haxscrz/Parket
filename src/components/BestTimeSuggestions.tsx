@@ -83,65 +83,52 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
   }
 
   return (
-    <Card className="bg-card border-border">
-      <div className="p-3">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <h3 className="font-bold text-sm text-foreground">Best Time to Park</h3>
-              <p className="text-xs text-muted-foreground">AI recommendations</p>
-            </div>
+    <div className="space-y-3">
+      {/* Current Status Card */}
+      <motion.div 
+        className="p-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 dark:border-purple-500/20"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex items-start gap-2">
+          <motion.div 
+            className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0"
+            animate={{ 
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <TrendingDown className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          </motion.div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-0.5">Right Now</p>
+            <AnimatePresence mode="wait">
+              <motion.p 
+                key={currentRecommendation}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="text-xs text-foreground"
+              >
+                {currentRecommendation}
+              </motion.p>
+            </AnimatePresence>
           </div>
         </div>
+      </motion.div>
 
-        {/* Current Status Card */}
-        <motion.div 
-          className="mb-3 p-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 dark:border-purple-500/20"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex items-start gap-2">
-            <motion.div 
-              className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0"
-              animate={{ 
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ 
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <TrendingDown className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            </motion.div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-0.5">Right Now</p>
-              <AnimatePresence mode="wait">
-                <motion.p 
-                  key={currentRecommendation}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="text-xs text-foreground"
-                >
-                  {currentRecommendation}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Best Times List */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 mb-2">
-            <Calendar className="w-4 h-4 text-green-600 dark:text-green-400" />
-            <h4 className="text-xs font-semibold text-foreground">Top 3 Best Times</h4>
-          </div>
+      {/* Best Times List */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 mb-2">
+          <Calendar className="w-4 h-4 text-green-600 dark:text-green-400" />
+          <h4 className="text-xs font-semibold text-foreground">Top 3 Best Times</h4>
+        </div>
 
           {bestTimes.slice(0, 3).map((time, index) => (
             <motion.div
@@ -219,21 +206,12 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
 
         {/* Action Button */}
         <Button
-          className="w-full mt-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl h-11"
+          className="w-full mt-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-lg h-9 text-sm"
           onClick={() => onSelectTime?.(bestTimes[0]?.day, bestTimes[0]?.time)}
         >
           <Clock className="w-4 h-4 mr-2" />
           Schedule for Best Time
         </Button>
-
-        {/* Info */}
-        <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
-          <p className="text-xs text-muted-foreground">
-            <Sparkles className="w-3 h-3 inline mr-1" />
-            Predictions based on historical data and real-time ML analysis
-          </p>
-        </div>
       </div>
-    </Card>
   );
 }
