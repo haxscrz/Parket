@@ -254,9 +254,9 @@ export function HomeScreenRevamped({
       </div>
 
       {/* Main Content with Tabs */}
-      <div className="flex-1 overflow-y-auto flex flex-col px-3 sm:px-4 py-3 sm:py-4">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col">
-          <TabsList className="grid w-full grid-cols-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-0.5 mb-3 sm:mb-4">
+      <div className="flex-1 overflow-hidden flex flex-col px-3 sm:px-4 py-3 sm:py-4">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col flex-1 overflow-hidden">
+          <TabsList className="grid w-full grid-cols-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-0.5 mb-3 sm:mb-4 flex-shrink-0">
             <TabsTrigger 
               value="overview" 
               className="rounded-md data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-sm font-semibold text-xs sm:text-sm py-1.5 sm:py-2"
@@ -280,8 +280,8 @@ export function HomeScreenRevamped({
             </TabsTrigger>
           </TabsList>
 
-          {/* Tab Content Container */}
-          <div className="w-full">
+          {/* Tab Content Container - Scrollable */}
+          <div className="flex-1 overflow-y-auto">
             {/* Overview Tab */}
             <TabsContent value="overview" className="space-y-3 sm:space-y-4 mt-0">
               <AnimatePresence mode="wait">
