@@ -3327,3 +3327,68 @@ body {
     touch-action: manipulation;
   }
 }
+
+/* Tab content transitions */
+[data-state="active"][role="tabpanel"] {
+  animation: tabFadeIn 0.3s ease-out;
+}
+
+[data-state="inactive"][role="tabpanel"] {
+  animation: tabFadeOut 0.2s ease-in;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tabFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* Tab button press effect */
+[role="tab"]:active {
+  transform: scale(0.96);
+}
+
+/* Accordion smooth transitions */
+[data-state="open"] > [data-slot="accordion-content"] {
+  animation: accordionOpen 0.3s ease-out;
+}
+
+[data-state="closed"] > [data-slot="accordion-content"] {
+  animation: accordionClose 0.2s ease-in;
+}
+
+@keyframes accordionOpen {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+@keyframes accordionClose {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

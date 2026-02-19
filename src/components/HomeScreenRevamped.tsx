@@ -261,33 +261,33 @@ export function HomeScreenRevamped({
       {/* Main Content with Tabs */}
       <div className="flex-1 flex flex-col px-3 sm:px-4 py-3 sm:py-4 min-h-0">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col flex-1 min-h-0">
-          <TabsList className="grid w-full grid-cols-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-0.5 mb-3 sm:mb-4 flex-shrink-0">
+          <TabsList className="grid w-full grid-cols-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-1 mb-3 sm:mb-4 flex-shrink-0 shadow-inner">
             <TabsTrigger 
               value="overview" 
-              className="rounded-md data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-sm font-semibold text-xs sm:text-sm py-1.5 sm:py-2"
+              className="relative rounded-lg font-semibold text-xs sm:text-sm py-2 sm:py-2.5 transition-all duration-300 ease-out data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/70 active:scale-95"
             >
-              <Target className="w-3.5 h-3.5 mr-1" />
+              <Target className="w-3.5 h-3.5 mr-1.5" />
               Overview
             </TabsTrigger>
             <TabsTrigger 
               value="ai-insights"
-              className="rounded-md data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-sm font-semibold text-xs sm:text-sm py-1.5 sm:py-2"
+              className="relative rounded-lg font-semibold text-xs sm:text-sm py-2 sm:py-2.5 transition-all duration-300 ease-out data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/70 active:scale-95"
             >
-              <Brain className="w-3.5 h-3.5 mr-1" />
+              <Brain className="w-3.5 h-3.5 mr-1.5" />
               AI Insights
             </TabsTrigger>
             <TabsTrigger 
               value="wallet"
-              className="rounded-md data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-sm font-semibold text-xs sm:text-sm py-1.5 sm:py-2"
+              className="relative rounded-lg font-semibold text-xs sm:text-sm py-2 sm:py-2.5 transition-all duration-300 ease-out data-[state=active]:bg-[#193654] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] data-[state=inactive]:text-slate-600 data-[state=inactive]:hover:bg-slate-200/70 active:scale-95"
             >
-              <Wallet className="w-3.5 h-3.5 mr-1" />
+              <Wallet className="w-3.5 h-3.5 mr-1.5" />
               Wallet
             </TabsTrigger>
           </TabsList>
 
           {/* Tab Content Container - Scrollable */}
           <div className="flex-1 overflow-y-auto min-h-0">
-            {/* Overview Tab */}
+            {/* Overview Tab */}}
             <TabsContent value="overview" className="space-y-3 sm:space-y-4 mt-0 pb-6">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -448,28 +448,30 @@ export function HomeScreenRevamped({
                   className="space-y-3"
                 >
                   {/* Quick Insights Summary - Always Visible */}
-                  <Card className="bg-gradient-to-r from-[#193654] to-[#2a5a8a] border-0 shadow-lg">
-                    <div className="p-3">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Brain className="w-4 h-4 text-white" />
-                        <h3 className="text-sm font-bold text-white">AI Quick Insights</h3>
-                        <Badge className="ml-auto bg-white/20 text-white border-0 text-xs">
+                  <Card className="bg-gradient-to-r from-[#193654] to-[#2a5a8a] border-0 shadow-lg overflow-hidden">
+                    <div className="p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center">
+                          <Brain className="w-4 h-4 text-white" />
+                        </div>
+                        <h3 className="text-sm font-bold text-white tracking-wide">AI Quick Insights</h3>
+                        <Badge className="ml-auto bg-emerald-500/30 text-emerald-300 border-emerald-400/30 text-xs px-2">
                           <Sparkles className="w-3 h-3 mr-1" />
                           Live
                         </Badge>
                       </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="bg-white/10 rounded-lg p-2 text-center">
-                          <p className="text-xs text-white/70">Best Time</p>
-                          <p className="text-sm font-bold text-white">2-4 PM</p>
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
+                          <p className="text-[10px] uppercase tracking-wider text-white/60 font-medium mb-1">Best Time</p>
+                          <p className="text-base font-bold text-white">2-4 PM</p>
                         </div>
-                        <div className="bg-white/10 rounded-lg p-2 text-center">
-                          <p className="text-xs text-white/70">Occupancy</p>
-                          <p className="text-sm font-bold text-white">42%</p>
+                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
+                          <p className="text-[10px] uppercase tracking-wider text-white/60 font-medium mb-1">Occupancy</p>
+                          <p className="text-base font-bold text-white">42%</p>
                         </div>
-                        <div className="bg-white/10 rounded-lg p-2 text-center">
-                          <p className="text-xs text-white/70">Status</p>
-                          <p className="text-sm font-bold text-emerald-400">Good</p>
+                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
+                          <p className="text-[10px] uppercase tracking-wider text-white/60 font-medium mb-1">Status</p>
+                          <p className="text-base font-bold text-emerald-400">Good</p>
                         </div>
                       </div>
                     </div>
@@ -478,19 +480,19 @@ export function HomeScreenRevamped({
                   {/* Collapsible Sections */}
                   <Accordion type="single" collapsible className="space-y-2">
                     {/* Best Times Section */}
-                    <AccordionItem value="best-times" className="border rounded-lg bg-card overflow-hidden">
-                      <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-muted/50">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                            <Calendar className="w-4 h-4 text-white" />
+                    <AccordionItem value="best-times" className="border rounded-xl bg-card overflow-hidden shadow-sm">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-md">
+                            <Calendar className="w-5 h-5 text-white" />
                           </div>
                           <div className="text-left">
-                            <p className="font-semibold text-sm">Best Times to Park</p>
+                            <p className="font-semibold text-sm text-foreground">Best Times to Park</p>
                             <p className="text-xs text-muted-foreground">AI-optimized suggestions</p>
                           </div>
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-3 pb-3">
+                      <AccordionContent className="px-4 pb-4">
                         <BestTimeSuggestions 
                           location="SM Dasmarinas" 
                           darkMode={darkMode}
@@ -499,19 +501,19 @@ export function HomeScreenRevamped({
                     </AccordionItem>
 
                     {/* Peak Hours Section */}
-                    <AccordionItem value="peak-hours" className="border rounded-lg bg-card overflow-hidden">
-                      <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-muted/50">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                            <AlertTriangle className="w-4 h-4 text-white" />
+                    <AccordionItem value="peak-hours" className="border rounded-xl bg-card overflow-hidden shadow-sm">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-md">
+                            <AlertTriangle className="w-5 h-5 text-white" />
                           </div>
                           <div className="text-left">
-                            <p className="font-semibold text-sm">Peak Hours Analysis</p>
+                            <p className="font-semibold text-sm text-foreground">Peak Hours Analysis</p>
                             <p className="text-xs text-muted-foreground">ML-powered predictions</p>
                           </div>
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-3 pb-3">
+                      <AccordionContent className="px-4 pb-4">
                         <PeakHoursChart 
                           location="SM Dasmarinas"
                           darkMode={darkMode}
@@ -520,19 +522,19 @@ export function HomeScreenRevamped({
                     </AccordionItem>
 
                     {/* Historical Trends Section */}
-                    <AccordionItem value="trends" className="border rounded-lg bg-card overflow-hidden">
-                      <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-muted/50">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                            <BarChart3 className="w-4 h-4 text-white" />
+                    <AccordionItem value="trends" className="border rounded-xl bg-card overflow-hidden shadow-sm">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-md">
+                            <Activity className="w-5 h-5 text-white" />
                           </div>
                           <div className="text-left">
-                            <p className="font-semibold text-sm">Historical Trends</p>
+                            <p className="font-semibold text-sm text-foreground">Historical Trends</p>
                             <p className="text-xs text-muted-foreground">Real-time patterns</p>
                           </div>
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-3 pb-3">
+                      <AccordionContent className="px-4 pb-4">
                         <HistoricalTrendsAnimation
                           location="SM Dasmarinas"
                           darkMode={darkMode}
