@@ -4,6 +4,7 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Clock, ThumbsUp, Star, Sparkles, TrendingDown, Calendar } from 'lucide-react';
 import { mlService } from '../services/mlPredictionService';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface BestTimeSuggestionsProps {
   location: string;
@@ -97,17 +98,43 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
         </div>
 
         {/* Current Status Card */}
-        <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 dark:border-purple-500/20">
+        <motion.div 
+          className="mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 dark:border-purple-500/20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <motion.div 
+              className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0"
+              animate={{ 
+                scale: [1, 1.1, 1],
+                rotate: [0, 5, -5, 0]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
               <TrendingDown className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            </div>
+            </motion.div>
             <div className="flex-1">
               <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">Right Now</p>
-              <p className="text-sm text-foreground">{currentRecommendation}</p>
+              <AnimatePresence mode="wait">
+                <motion.p 
+                  key={currentRecommendation}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="text-sm text-foreground"
+                >
+                  {currentRecommendation}
+                </motion.p>
+              </AnimatePresence>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Best Times List */}
         <div className="space-y-3">
@@ -117,10 +144,15 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
           </div>
 
           {bestTimes.map((time, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
               className={`p-4 rounded-xl border transition-all hover:shadow-lg cursor-pointer ${getRecommendationColor(time.recommendation)}`}
               onClick={() => onSelectTime?.(time.day, time.time)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-3">
@@ -141,24 +173,47 @@ export function BestTimeSuggestions({ location, darkMode, onSelectTime }: BestTi
               <div className="mt-3">
                 <div className="flex items-center justify-between text-xs mb-1">
                   <span className="opacity-80">Availability</span>
-                  <span className="font-bold">{time.availability}%</span>
+                  <motion.span 
+                    className="font-bold"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                  >
+                    {time.availability}%
+                  </motion.span>
                 </div>
                 <div className="w-full bg-white/30 dark:bg-black/20 rounded-full h-2 overflow-hidden">
-                  <div
-                    className="h-full bg-current rounded-full transition-all duration-500"
-                    style={{ width: `${time.availability}%` }}
+                  <motion.div
+                    className="h-full bg-current rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${time.availability}%` }}
+                    transition={{ 
+                      duration: 1,
+                      delay: index * 0.1 + 0.2,
+                      ease: "easeOut"
+                    }}
                   />
                 </div>
               </div>
 
               {/* Ranking Badge */}
               {index === 0 && (
-                <div className="mt-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-yellow-400/20 text-yellow-700 dark:text-yellow-300 text-xs font-semibold">
+                <motion.div 
+                  className="mt-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-yellow-400/20 text-yellow-700 dark:text-yellow-300 text-xs font-semibold"
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    delay: 0.5
+                  }}
+                >
                   <Star className="w-3 h-3 fill-current" />
                   Best Choice
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 

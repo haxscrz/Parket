@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { TrendingUp, TrendingDown, Clock, AlertTriangle, Sparkles, Brain } from 'lucide-react';
 import { mlService } from '../services/mlPredictionService';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface PeakHoursChartProps {
   location: string;
@@ -12,12 +13,50 @@ interface PeakHoursChartProps {
 
 export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
   const [chartData, setChartData] = useState<Array<{ hour: string; weekday: number; weekend: number }>>([]);
+  const [visibleData, setVisibleData] = useState<Array<{ hour: string; weekday: number; weekend: number }>>([]);
   const [loading, setLoading] = useState(true);
   const [peakHours, setPeakHours] = useState<Array<{ day: string; time: string; occupancy: number; severity: string }>>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const animationRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     loadChartData();
+    
+    return () => {
+      if (animationRef.current) {
+        clearInterval(animationRef.current);
+      }
+    };
   }, [location]);
+
+  useEffect(() => {
+    if (chartData.length === 0) return;
+
+    // Animate through data points
+    const animateData = () => {
+      setCurrentIndex((prev) => {
+        const next = prev + 1;
+        if (next > chartData.length) {
+          return 0; // Reset to beginning for loop
+        }
+        return next;
+      });
+    };
+
+    // Start animation
+    animationRef.current = setInterval(animateData, 800); // Update every 800ms
+
+    return () => {
+      if (animationRef.current) {
+        clearInterval(animationRef.current);
+      }
+    };
+  }, [chartData]);
+
+  useEffect(() => {
+    // Update visible data based on current index
+    setVisibleData(chartData.slice(0, Math.max(1, currentIndex)));
+  }, [currentIndex, chartData]);
 
   const loadChartData = async () => {
     try {
@@ -66,9 +105,14 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
         </div>
 
         {/* Chart */}
-        <div className="mb-6">
+        <motion.div 
+          className="mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={chartData}>
+            <BarChart data={visibleData}>
               <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#374151' : '#e5e7eb'} />
               <XAxis 
                 dataKey="hour" 
@@ -99,16 +143,34 @@ export function PeakHoursChart({ location, darkMode }: PeakHoursChartProps) {
                 fill="#3b82f6" 
                 radius={[4, 4, 0, 0]}
                 name="Weekday"
+                animationDuration={500}
+                isAnimationActive={true}
               />
               <Bar 
                 dataKey="weekend" 
                 fill="#ef4444" 
-                radius={[4, 4, 0, 0]}
+                radius={[8, 8, 0, 0]} 
                 name="Weekend"
+                animationDuration={500}
+                isAnimationActive={true}
               />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+          
+          {/* Progress indicator */}
+          <div className="mt-2 text-center">
+            <p className="text-xs text-muted-foreground">
+              <motion.span
+                key={currentIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                Analyzing historical patterns... {Math.min(100, Math.round((currentIndex / chartData.length) * 100))}%
+              </motion.span>
+            </p>
+          </div>
+        </motion.div>
 
         {/* Peak Hours List */}
         <div>

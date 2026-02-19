@@ -59,7 +59,14 @@ class MLPredictionService {
   async getCurrentPrediction(location: string): Promise<HourlyPrediction | null> {
     const now = new Date();
     const day = now.getDay();
-    const hour = now.getHours();
+    let hour = now.getHours();
+    
+    // If current hour is outside business hours (6-21), use nearest available hour
+    if (hour < 6) {
+      hour = 6; // Use 6 AM data
+    } else if (hour > 21) {
+      hour = 21; // Use 9 PM data
+    }
     
     return this.getPrediction(location, day, hour);
   }
