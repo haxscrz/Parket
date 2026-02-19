@@ -227,13 +227,13 @@ export function HistoricalTrendsAnimation({ location, darkMode }: HistoricalTren
         <div className="mt-4">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
             <span>Analysis Progress</span>
-            <span>{Math.round((displayData.length / allData.length) * 100)}%</span>
+            <span>{allData.length > 0 ? Math.round((displayData.length / allData.length) * 100) : 0}%</span>
           </div>
           <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-r from-orange-500 to-red-500"
               initial={{ width: 0 }}
-              animate={{ width: `${(displayData.length / allData.length) * 100}%` }}
+              animate={{ width: `${allData.length > 0 ? (displayData.length / allData.length) * 100 : 0}%` }}
               transition={{ duration: 0.3 }}
             />
           </div>
