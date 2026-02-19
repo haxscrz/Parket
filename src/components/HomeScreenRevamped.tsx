@@ -287,7 +287,7 @@ export function HomeScreenRevamped({
 
           {/* Tab Content Container - Scrollable */}
           <div className="flex-1 overflow-y-auto min-h-0">
-            {/* Overview Tab */}}
+            {/* Overview Tab */}
             <TabsContent value="overview" className="space-y-3 sm:space-y-4 mt-0 pb-6">
               <AnimatePresence mode="wait">
                 <motion.div
