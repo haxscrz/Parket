@@ -91,9 +91,9 @@ export function HomeScreenRevamped({
           />
         </div>
 
-        <div className="relative p-4 pb-4 safe-area-inset-top">
+        <div className="relative pt-2 px-4 pb-4">
           {/* Top Bar */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <motion.div 
                 className="w-10 h-10 bg-white/20 backdrop-blur-xl rounded-xl flex items-center justify-center border border-white/30 flex-shrink-0"
