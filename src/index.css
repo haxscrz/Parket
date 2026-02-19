@@ -3284,27 +3284,27 @@ body {
 
 /* Mobile responsive optimizations */
 @layer base {
-  /* Hide scrollbars but keep functionality */
+  /* Visible scrollbars for better UX */
   .overflow-y-auto {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(25, 54, 84, 0.3) transparent;
+    scrollbar-width: auto;
+    scrollbar-color: rgba(25, 54, 84, 0.6) rgba(25, 54, 84, 0.1);
   }
 
   .overflow-y-auto::-webkit-scrollbar {
-    width: 4px;
+    width: 8px;
   }
 
   .overflow-y-auto::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(25, 54, 84, 0.1);
   }
 
   .overflow-y-auto::-webkit-scrollbar-thumb {
-    background-color: rgba(25, 54, 84, 0.3);
-    border-radius: 2px;
+    background-color: rgba(25, 54, 84, 0.6);
+    border-radius: 4px;
   }
 
   .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(25, 54, 84, 0.5);
+    background-color: rgba(25, 54, 84, 0.8);
   }
 
   /* Ensure text doesn't overflow in mobile */

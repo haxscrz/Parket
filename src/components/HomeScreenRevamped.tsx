@@ -254,7 +254,7 @@ export function HomeScreenRevamped({
       </div>
 
       {/* Main Content with Tabs */}
-      <div className="flex-1 overflow-hidden flex flex-col px-3 sm:px-4 py-3 sm:py-4">
+      <div className="flex-1 flex flex-col px-3 sm:px-4 py-3 sm:py-4 overflow-hidden">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col flex-1 overflow-hidden">
           <TabsList className="grid w-full grid-cols-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-0.5 mb-3 sm:mb-4 flex-shrink-0">
             <TabsTrigger 
