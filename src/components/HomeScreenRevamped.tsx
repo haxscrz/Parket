@@ -3,8 +3,7 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { ScrollArea } from "./ui/scroll-area";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
+
 import {
   Wallet,
   Plus,
@@ -28,7 +27,6 @@ import {
   Target,
   Calendar,
   AlertTriangle,
-  BarChart3
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PeakHoursChart } from "./PeakHoursChart";
@@ -51,6 +49,11 @@ export function HomeScreenRevamped({
   darkMode,
 }: HomeScreenRevampedProps) {
   const [activeTab, setActiveTab] = useState("overview");
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+
+  const toggleSection = (key: string) => {
+    setOpenSections(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const locations = [
     { name: "SM Dasmarinas", price: "₱25-35", distance: "2.1 km", rating: 4.5, availability: 45, status: "available" },
@@ -437,113 +440,223 @@ export function HomeScreenRevamped({
             </TabsContent>
 
             {/* AI Insights Tab */}
-            <TabsContent value="ai-insights" className="mt-0 pb-2">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key="ai-insights"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-3"
-                >
-                  {/* Quick Insights Summary - Always Visible */}
-                  <Card className="bg-gradient-to-r from-[#193654] to-[#2a5a8a] border-0 shadow-lg overflow-hidden">
-                    <div className="p-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center">
-                          <Brain className="w-4 h-4 text-white" />
+            <TabsContent value="ai-insights" className="mt-0 pb-24">
+              <div className="space-y-3">
+                  {/* ── Hero Banner ── */}
+                  <div
+                    style={{
+                      background: "linear-gradient(135deg, #0f1f35 0%, #193654 45%, #2a5a8a 100%)",
+                      borderRadius: "20px",
+                      padding: "20px",
+                      position: "relative",
+                      overflow: "hidden",
+                      boxShadow: "0 20px 40px rgba(15,31,53,0.45)"
+                    }}
+                  >
+                    {/* Decorative blobs */}
+                    <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "120px", height: "120px", background: "rgba(255,255,255,0.04)", borderRadius: "50%" }} />
+                    <div style={{ position: "absolute", bottom: "-20px", left: "-20px", width: "80px", height: "80px", background: "rgba(255,255,255,0.03)", borderRadius: "50%" }} />
+
+                    {/* Header row */}
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <div style={{
+                          width: "40px", height: "40px",
+                          background: "rgba(255,255,255,0.15)",
+                          borderRadius: "12px",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          border: "1px solid rgba(255,255,255,0.2)"
+                        }}>
+                          <Brain style={{ width: "22px", height: "22px", color: "white" }} />
                         </div>
-                        <h3 className="text-sm font-bold text-white tracking-wide">AI Quick Insights</h3>
-                        <Badge className="ml-auto bg-emerald-500/30 text-emerald-300 border-emerald-400/30 text-xs px-2">
-                          <Sparkles className="w-3 h-3 mr-1" />
-                          Live
-                        </Badge>
+                        <div>
+                          <p style={{ color: "white", fontWeight: 800, fontSize: "16px", lineHeight: 1.2 }}>Parket AI</p>
+                          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 500 }}>SM Dasmarinas</p>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-3 gap-3">
-                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
-                          <p className="text-[10px] uppercase tracking-wider text-white/60 font-medium mb-1">Best Time</p>
-                          <p className="text-base font-bold text-white">2-4 PM</p>
-                        </div>
-                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
-                          <p className="text-[10px] uppercase tracking-wider text-white/60 font-medium mb-1">Occupancy</p>
-                          <p className="text-base font-bold text-white">42%</p>
-                        </div>
-                        <div className="bg-white/15 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
-                          <p className="text-[10px] uppercase tracking-wider text-white/60 font-medium mb-1">Status</p>
-                          <p className="text-base font-bold text-emerald-400">Good</p>
-                        </div>
+                      <div style={{
+                        display: "flex", alignItems: "center", gap: "6px",
+                        background: "rgba(16,185,129,0.2)",
+                        border: "1px solid rgba(16,185,129,0.4)",
+                        borderRadius: "100px",
+                        padding: "5px 12px"
+                      }}>
+                        <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#10b981", display: "inline-block", animation: "pulse 2s infinite" }} />
+                        <span style={{ color: "#6ee7b7", fontSize: "11px", fontWeight: 700 }}>LIVE</span>
                       </div>
                     </div>
-                  </Card>
 
-                  {/* Collapsible Sections */}
-                  <Accordion type="single" collapsible className="space-y-2">
-                    {/* Best Times Section */}
-                    <AccordionItem value="best-times" className="border rounded-xl bg-card overflow-hidden shadow-sm">
-                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-md">
-                            <Calendar className="w-5 h-5 text-white" />
-                          </div>
-                          <div className="text-left">
-                            <p className="font-semibold text-sm text-foreground">Best Times to Park</p>
-                            <p className="text-xs text-muted-foreground">AI-optimized suggestions</p>
-                          </div>
+                    {/* Stats row */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
+                      {[
+                        { label: "Best Time", value: "2–4 PM", color: "#93c5fd" },
+                        { label: "Occupancy", value: "42%",    color: "white" },
+                        { label: "Status",    value: "Good",   color: "#6ee7b7" },
+                      ].map(({ label, value, color }) => (
+                        <div
+                          key={label}
+                          style={{
+                            background: "rgba(255,255,255,0.08)",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                            borderRadius: "14px",
+                            padding: "12px 8px",
+                            textAlign: "center"
+                          }}
+                        >
+                          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>{label}</p>
+                          <p style={{ color, fontSize: "18px", fontWeight: 800, lineHeight: 1 }}>{value}</p>
                         </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-4">
-                        <BestTimeSuggestions 
-                          location="SM Dasmarinas" 
-                          darkMode={darkMode}
-                        />
-                      </AccordionContent>
-                    </AccordionItem>
+                      ))}
+                    </div>
 
-                    {/* Peak Hours Section */}
-                    <AccordionItem value="peak-hours" className="border rounded-xl bg-card overflow-hidden shadow-sm">
-                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-md">
-                            <AlertTriangle className="w-5 h-5 text-white" />
-                          </div>
-                          <div className="text-left">
-                            <p className="font-semibold text-sm text-foreground">Peak Hours Analysis</p>
-                            <p className="text-xs text-muted-foreground">ML-powered predictions</p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-4">
-                        <PeakHoursChart 
-                          location="SM Dasmarinas"
-                          darkMode={darkMode}
-                        />
-                      </AccordionContent>
-                    </AccordionItem>
+                    {/* Ai insight caption */}
+                    <div style={{ marginTop: "14px", padding: "10px 14px", background: "rgba(255,255,255,0.06)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <Sparkles style={{ width: "14px", height: "14px", color: "#fbbf24", flexShrink: 0 }} />
+                        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "12px", lineHeight: 1.5 }}>
+                          Weekday afternoon slots have <strong style={{ color: "white" }}>58% lower wait times</strong>. Tuesday 2–4 PM is your optimal window.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-                    {/* Historical Trends Section */}
-                    <AccordionItem value="trends" className="border rounded-xl bg-card overflow-hidden shadow-sm">
-                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50 transition-colors">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-md">
-                            <Activity className="w-5 h-5 text-white" />
+                  {/* ── Section Cards ── */}
+                  {([
+                    {
+                      key: "best-times",
+                      icon: <Calendar style={{ width: "20px", height: "20px", color: "white" }} />,
+                      iconBg: "linear-gradient(135deg, #10b981, #059669)",
+                      title: "Best Times to Park",
+                      subtitle: "AI-optimized suggestions",
+                      accentColor: "#10b981",
+                      content: <BestTimeSuggestions location="SM Dasmarinas" darkMode={darkMode} />,
+                    },
+                    {
+                      key: "peak-hours",
+                      icon: <AlertTriangle style={{ width: "20px", height: "20px", color: "white" }} />,
+                      iconBg: "linear-gradient(135deg, #8b5cf6, #7c3aed)",
+                      title: "Peak Hours Analysis",
+                      subtitle: "ML-powered predictions",
+                      accentColor: "#8b5cf6",
+                      content: <PeakHoursChart location="SM Dasmarinas" darkMode={darkMode} />,
+                    },
+                    {
+                      key: "historical-trends",
+                      icon: <Activity style={{ width: "20px", height: "20px", color: "white" }} />,
+                      iconBg: "linear-gradient(135deg, #f97316, #dc2626)",
+                      title: "Historical Trends",
+                      subtitle: "Real-time patterns",
+                      accentColor: "#f97316",
+                      content: <HistoricalTrendsAnimation location="SM Dasmarinas" darkMode={darkMode} />,
+                    },
+                  ] as const).map((section) => {
+                    const isOpen = !!openSections[section.key];
+                    return (
+                      <div
+                        key={section.key}
+                        className="bg-white dark:bg-slate-800"
+                        style={{
+                          borderRadius: "16px",
+                          border: isOpen
+                            ? `1.5px solid ${section.accentColor}40`
+                            : "1.5px solid transparent",
+                          boxShadow: isOpen
+                            ? `0 4px 24px ${section.accentColor}18`
+                            : "0 2px 8px rgba(0,0,0,0.07)",
+                          transition: "box-shadow 0.25s ease, border-color 0.25s ease",
+                          overflow: "hidden"
+                        }}
+                      >
+                        {/* Trigger row */}
+                        <button
+                          onClick={() => toggleSection(section.key)}
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "14px",
+                            padding: "16px",
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            textAlign: "left"
+                          }}
+                        >
+                          {/* Icon */}
+                          <div style={{
+                            width: "44px",
+                            height: "44px",
+                            borderRadius: "12px",
+                            background: section.iconBg,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                            boxShadow: `0 6px 16px ${section.accentColor}40`
+                          }}>
+                            {section.icon}
                           </div>
-                          <div className="text-left">
-                            <p className="font-semibold text-sm text-foreground">Historical Trends</p>
-                            <p className="text-xs text-muted-foreground">Real-time patterns</p>
+
+                          {/* Text */}
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <p className="text-slate-900 dark:text-white" style={{ fontWeight: 700, fontSize: "15px", lineHeight: 1.3 }}>
+                              {section.title}
+                            </p>
+                            <p className="text-slate-500 dark:text-slate-400" style={{ fontSize: "12px", marginTop: "2px" }}>
+                              {section.subtitle}
+                            </p>
                           </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-4">
-                        <HistoricalTrendsAnimation
-                          location="SM Dasmarinas"
-                          darkMode={darkMode}
-                        />
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </motion.div>
-              </AnimatePresence>
+
+                          {/* Chevron */}
+                          <div
+                            style={{
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "8px",
+                              background: isOpen ? `${section.accentColor}18` : "rgba(0,0,0,0.05)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                              transition: "background 0.2s ease"
+                            }}
+                          >
+                            <ChevronDown
+                              style={{
+                                width: "16px",
+                                height: "16px",
+                                color: isOpen ? section.accentColor : "#94a3b8",
+                                transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                                transition: "transform 0.25s ease, color 0.2s ease"
+                              }}
+                            />
+                          </div>
+                        </button>
+
+                        {/* Collapsible content */}
+                        <AnimatePresence initial={false}>
+                          {isOpen && (
+                            <motion.div
+                              key="content"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              style={{ overflow: "hidden" }}
+                            >
+                              <div style={{
+                                padding: "0 16px 16px",
+                                borderTop: `1px solid ${section.accentColor}20`
+                              }}>
+                                {section.content}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  })}
+              </div>
             </TabsContent>
 
             {/* Wallet Tab */}

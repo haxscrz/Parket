@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import { PeakHoursChart } from "./PeakHoursChart";
 import { BestTimeSuggestions } from "./BestTimeSuggestions";
-import { HistoricalTrendsAnimation } from "./HistoricalTrendsAnimation";
 
 interface HomeScreenProps {
   onNavigateToParking: () => void;
@@ -130,12 +129,6 @@ export function HomeScreen({
           
           {/* Peak Hours Chart */}
           <PeakHoursChart 
-            location="SM Dasmarinas"
-            darkMode={darkMode}
-          />
-
-          {/* Historical Trends Animation */}
-          <HistoricalTrendsAnimation
             location="SM Dasmarinas"
             darkMode={darkMode}
           />
